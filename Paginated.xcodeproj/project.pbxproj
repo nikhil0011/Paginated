@@ -117,9 +117,9 @@
 		84B3DCA82167C9F400B76F06 /* Paginated */ = {
 			isa = PBXGroup;
 			children = (
+				84B3DDBE2167E00B00B76F06 /* Gallery */,
 				84B3DDB72167DEFD00B76F06 /* Constants */,
 				84B3DDB62167DEF400B76F06 /* Extensions */,
-				84B3DD672167CAD300B76F06 /* Networking */,
 				84B3DCA92167C9F400B76F06 /* AppDelegate.swift */,
 				84B3DCAB2167C9F400B76F06 /* ViewController.swift */,
 				84B3DCAD2167C9F400B76F06 /* Main.storyboard */,
@@ -185,6 +185,54 @@
 				84B3DDBC2167DF8500B76F06 /* ColorPalette.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		84B3DDBE2167E00B00B76F06 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				84B3DDC32167E1B400B76F06 /* DataManager */,
+				84B3DDC22167E16700B76F06 /* Protocols */,
+				84B3DDC12167E15F00B76F06 /* Interactor */,
+				84B3DDC02167E15600B76F06 /* Presenter */,
+				84B3DDBF2167E14F00B76F06 /* View */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		84B3DDBF2167E14F00B76F06 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		84B3DDC02167E15600B76F06 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		84B3DDC12167E15F00B76F06 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		84B3DDC22167E16700B76F06 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		84B3DDC32167E1B400B76F06 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				84B3DD672167CAD300B76F06 /* Networking */,
+			);
+			path = DataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
