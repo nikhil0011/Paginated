@@ -7,3 +7,23 @@
 //
 
 import Foundation
+
+class GalleryInteractor: GalleryViewInteractorInputProtocol {
+    weak var presenter: GalleryViewInteractorOutputProtocol?
+    var remoteDatamanager: GalleryDataViewRemoteDataManagerInputProtocol?
+    
+    func retrievePostsList() {
+        debugPrint("FlickrGridInteractor")
+        remoteDatamanager?.retrievePostsDataList()
+    }
+}
+
+extension GalleryInteractor: GalleryDataViewRemoteDataManagerOutputProtocol {
+    func onPostsDataRetrieved(_ post: Array<OMDBResponse>){
+        presenter?.didRetrieveMoviewPosts(post)
+    }
+    
+    func onError() {
+        presenter?.onError()
+    }
+}

@@ -13,17 +13,17 @@ private let reuseIdentifier = "Cell"
 class GalleryCollectionViewController: UICollectionViewController {
     var presenter: GalleryPresenterProtocol?
     var galleryPosts = Array<OMDBResponse>()
-    
+    var indicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Register cell classes
         navigationItem.title = "OMDB Feed"
         collectionView?.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         self.navigationController?.navigationBar.barTintColor = UIColor.rgb(red: 246, green: 246, blue: 246)
         self.navigationController?.navigationBar.titleTextAttributes   = [NSAttributedString.Key.foregroundColor: UIColor.black]
         
@@ -31,6 +31,21 @@ class GalleryCollectionViewController: UICollectionViewController {
         presenter?.viewDidLoad()
         
         // Do any additional setup after loading the view.
+    }
+    
+    fileprivate func setupIndicator(){
+        self.indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+        self.indicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        self.indicator.center = view.center
+        self.view.addSubview(self.indicator)
+        self.view.bringSubviewToFront(self.indicator)
+    }
+    
+    fileprivate func showLoader(){
+        self.indicator.startAnimating()
+    }
+    fileprivate func hideLoader(){
+        self.indicator.stopAnimating()
     }
 
 }
@@ -41,15 +56,17 @@ extension GalleryCollectionViewController: GalleryViewProtocol {
     }
     
     func showError() {
+        self.hideLoader()
         //Show Error Loader
     }
     
     func showLoading() {
-        
+        self.showLoader()
         //Show Loader
     }
     
     func hideLoading() {
+        self.hideLoader()
         //Hide Loader
     }
 }

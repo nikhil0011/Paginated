@@ -8,13 +8,12 @@
 
 import UIKit
 
-class GalleryWireFrame: GalleryViewWireFrameProtocol {
-    
+class GalleryWireFrame: GalleryViewWireFrameProtocol {    
     
     static func createGalleryModule() -> UIViewController {
         let view = GalleryCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let presenter: GalleryPresenterProtocol & GalleryViewInteractorOutputProtocol = GalleryPresenter()
-        let interactor: GalleryViewInteractorInputProtocol & GalleryDataViewRemoteDataManagerOutputProtocol = GalleryViewInteractor()
+        let interactor: GalleryViewInteractorInputProtocol & GalleryDataViewRemoteDataManagerOutputProtocol = GalleryInteractor()
         let remoteDataManager: GalleryDataViewRemoteDataManagerInputProtocol = GalleryPostsRemoteDataManager()
         let wireFrame: GalleryViewWireFrameProtocol = GalleryWireFrame()
         
@@ -25,7 +24,7 @@ class GalleryWireFrame: GalleryViewWireFrameProtocol {
         interactor.presenter = presenter
         interactor.remoteDatamanager = remoteDataManager
         remoteDataManager.remoteRequestHandler = interactor
-        
+        debugPrint("view",view)
         return view
     }
 }
