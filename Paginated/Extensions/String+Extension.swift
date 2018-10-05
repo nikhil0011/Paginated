@@ -7,16 +7,16 @@
 //
 
 import Foundation
-
+import UIKit
 extension String {
     var localizedString: String {
         return NSLocalizedString(self, comment: "")
     }
-    
-    var html2String: String {
-        guard let data = data(using: .utf8), let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil) else {
-            return self
-        }
-        return attributedString.string
+}
+
+
+extension UIColor{
+    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor{
+        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1.0)
     }
 }
