@@ -19,6 +19,15 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    let movieTitle: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "LALALALLALALLAALALALLAALALLAALLA"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -30,6 +39,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     
     @objc func animate(){
         if let controller = galleryController{
+            controller.animateImageView(imageView: postImage)
         }
     }
     
@@ -37,18 +47,23 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         postImage.isUserInteractionEnabled = true
         postImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animate)))
         addSubview(postImage)
-        let constraint = [postImage.topAnchor.constraint(equalTo: topAnchor, constant: 8),postImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),postImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),postImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)]
+        addSubview(movieTitle)
+        let constraint = [postImage.topAnchor.constraint(equalTo: topAnchor, constant: 8),postImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),postImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),postImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),movieTitle.bottomAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 20),movieTitle.leadingAnchor.constraint(equalTo: postImage.leadingAnchor, constant: 12),movieTitle.trailingAnchor.constraint(equalTo: postImage.trailingAnchor, constant: -12)]
         NSLayoutConstraint.activate(constraint)
         
     }
     
-    func set(forPost post: String) {
+    func set(forPost post: MoviesPost) {
 //        let placeholderImage = UIImage(named: "placeholder")!
-        if  let imageUrl = URL(string: post) {
-            postImage.contentMode = .scaleAspectFit
-            postImage.downloaded(from: imageUrl)
+        if let poster = post.posterUrl{
+            if  let imageUrl = URL(string: poster) {
+                postImage.contentMode = .scaleAspectFit
+                postImage.downloaded(from: imageUrl)
+            }
         }
-//        postImage.af_setImage(withURL: imageUrl, placeholderImage: placeholderImage)
+        if let title = post.title{
+            movieTitle.text = title
+        }
     }
 }
 extension UIImageView {
