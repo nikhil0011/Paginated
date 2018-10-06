@@ -10,37 +10,29 @@ import Foundation
 
 /*
  *
- "Title":"Batman Begins",
- "Year":"2005",
- "imdbID":"tt0372784",
- "Type":"movie",
- "Poster": "https://m.media-amazon.com/images/M/ MV5BZmUwNGU2ZmItMmRiNC00MjhlLTg5YWUtODMyNzkxODYzMmZlXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg"
+ "Search":[],
+ "totalResults":"345",
+ "Response":"True"
  */
 struct OMDBResponse: Codable {
-    var title: String?
-    var year: String?
-    var imdbID: String?
-    var type: String?
-    var posterUrl: String?
+    var search: Array<MoviesPost>?
+    var totalResults: String?
+    var response: String?
     
     enum CodingKeys: String, CodingKey {
-        case title = "Title"
-        case year = "Year"
-        case type = "Type"
-        case posterUrl = "Poster"
+        case search = "Search"
+        case response = "Response"
     }
     
     init(from decoder:Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        title = try values.decode(String.self, forKey: .title)
-        year = try values.decode(String.self, forKey: .year)
-        title = try values.decode(String.self, forKey: .title)
-        year = try values.decode(String.self, forKey: .year)
+        search = try values.decode(Array<MoviesPost>.self, forKey: .search)
+        response = try values.decode(String.self, forKey: .response)
     }
 }
 
 extension OMDBResponse: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "<title: \n \(title)\n> year:\n \(year)\n with imdbID\n \(imdbID)\n  and type:\n \(type)\n and Poster url:\n \(posterUrl)"
+        return "<search: \n \(String(describing: search))\n> totalResults:\n \(String(describing: totalResults)) and response : \(String(describing: response))"
     }
 }

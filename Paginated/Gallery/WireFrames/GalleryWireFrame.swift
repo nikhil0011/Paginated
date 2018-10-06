@@ -14,7 +14,8 @@ class GalleryWireFrame: GalleryViewWireFrameProtocol {
         let view = GalleryCollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let presenter: GalleryPresenterProtocol & GalleryViewInteractorOutputProtocol = GalleryPresenter()
         let interactor: GalleryViewInteractorInputProtocol & GalleryDataViewRemoteDataManagerOutputProtocol = GalleryInteractor()
-        let remoteDataManager: GalleryDataViewRemoteDataManagerInputProtocol = GalleryPostsRemoteDataManager()
+        let request = OMDBRequest.from(page: "1")
+        let remoteDataManager: GalleryDataViewRemoteDataManagerInputProtocol = GalleryPostsRemoteDataManager(request: request)
         let wireFrame: GalleryViewWireFrameProtocol = GalleryWireFrame()
         
         view.presenter = presenter

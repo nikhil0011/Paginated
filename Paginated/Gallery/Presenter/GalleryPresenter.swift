@@ -21,11 +21,11 @@ class GalleryPresenter: GalleryPresenterProtocol {
 }
 
 extension GalleryPresenter: GalleryViewInteractorOutputProtocol {
-    func didRetrieveMoviewPosts(_ posts: Array<OMDBResponse>){
+    func didRetrieveMoviewPosts(_ posts: Array<MoviesPost>) {
         view?.hideLoading()
         view?.showMoviewPosts(with: posts)
     }
-    
+
     func onError() {
         view?.hideLoading()
         view?.showError()

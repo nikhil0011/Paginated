@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 
 class GalleryCollectionViewController: UICollectionViewController {
     var presenter: GalleryPresenterProtocol?
-    var galleryPosts = Array<OMDBResponse>()
+    var galleryPosts = Array<MoviesPost>()
     var indicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class GalleryCollectionViewController: UICollectionViewController {
         self.navigationController?.navigationBar.titleTextAttributes   = [NSAttributedString.Key.foregroundColor: UIColor.black]
         
         self.collectionView!.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        setupIndicator()
         presenter?.viewDidLoad()
         
         // Do any additional setup after loading the view.
@@ -50,7 +51,7 @@ class GalleryCollectionViewController: UICollectionViewController {
 
 }
 extension GalleryCollectionViewController: GalleryViewProtocol {
-    func showMoviewPosts(with posts: Array<OMDBResponse>){
+    func showMoviewPosts(with posts: Array<MoviesPost>){
         self.galleryPosts = posts
         collectionView?.reloadData()
     }
@@ -91,11 +92,13 @@ extension GalleryCollectionViewController{
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return galleryPosts.count
+        debugPrint("Count in numberOfItemsInSection",self.galleryPosts.count)
+        return galleryPosts.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GalleryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! GalleryCollectionViewCell
+        debugPrint("GAllery Post")
         if let url = galleryPosts[indexPath.row].posterUrl{
             cell.set(forPost: url)
             cell.galleryController = self

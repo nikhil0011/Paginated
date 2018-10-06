@@ -29,6 +29,7 @@
 		84B3DDCD2167E7D800B76F06 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3DDCC2167E7D800B76F06 /* GalleryCollectionViewCell.swift */; };
 		84B3DDD02167E84A00B76F06 /* GalleryWireFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3DDCF2167E84A00B76F06 /* GalleryWireFrame.swift */; };
 		84B3DDD3216801D800B76F06 /* GalleryPostsRemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3DDD2216801D800B76F06 /* GalleryPostsRemoteDataManager.swift */; };
+		84B3DDD52168C99300B76F06 /* MoviesPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B3DDD42168C99300B76F06 /* MoviesPost.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		84B3DDCC2167E7D800B76F06 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		84B3DDCF2167E84A00B76F06 /* GalleryWireFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryWireFrame.swift; sourceTree = "<group>"; };
 		84B3DDD2216801D800B76F06 /* GalleryPostsRemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryPostsRemoteDataManager.swift; sourceTree = "<group>"; };
+		84B3DDD42168C99300B76F06 /* MoviesPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesPost.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 		84B3DDA62167CAED00B76F06 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				84B3DDD42168C99300B76F06 /* MoviesPost.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				84B3DD722167CADE00B76F06 /* OMDBRequest.swift in Sources */,
 				84B3DDCB2167E7C700B76F06 /* GalleryCollectionViewController.swift in Sources */,
 				84B3DDB52167D2F300B76F06 /* OMDBResponse.swift in Sources */,
+				84B3DDD52168C99300B76F06 /* MoviesPost.swift in Sources */,
 				84B3DDB12167D2BB00B76F06 /* OMDBExchangeClient.swift in Sources */,
 				84B3DDB92167DF2A00B76F06 /* AlertDisplayer.swift in Sources */,
 				84B3DCAA2167C9F400B76F06 /* AppDelegate.swift in Sources */,

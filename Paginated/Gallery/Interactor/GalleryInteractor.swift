@@ -19,7 +19,8 @@ class GalleryInteractor: GalleryViewInteractorInputProtocol {
 }
 
 extension GalleryInteractor: GalleryDataViewRemoteDataManagerOutputProtocol {
-    func onPostsDataRetrieved(_ post: Array<OMDBResponse>){
+    func onPostsDataRetrieved(_ post: Array<MoviesPost>){
+        debugPrint("Data Retrived$$$$$$",post.count)
         presenter?.didRetrieveMoviewPosts(post)
     }
     
