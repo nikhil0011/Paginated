@@ -23,7 +23,18 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "LALALALLALALLAALALALLAALALLAALLA"
-        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = .red
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let movieYear: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "2015"
+        label.textColor = .red
+        label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,7 +50,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     
     @objc func animate(){
         if let controller = galleryController{
-            controller.animateImageView(imageView: postImage)
+            controller.animateImageView(imageView: postImage,title: movieTitle,year: movieYear)
         }
     }
     
@@ -47,8 +58,9 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         postImage.isUserInteractionEnabled = true
         postImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animate)))
         addSubview(postImage)
+        addSubview(movieYear)
         addSubview(movieTitle)
-        let constraint = [postImage.topAnchor.constraint(equalTo: topAnchor, constant: 8),postImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),postImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),postImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),movieTitle.bottomAnchor.constraint(equalTo: postImage.bottomAnchor, constant: 20),movieTitle.leadingAnchor.constraint(equalTo: postImage.leadingAnchor, constant: 12),movieTitle.trailingAnchor.constraint(equalTo: postImage.trailingAnchor, constant: -12)]
+        let constraint = [postImage.topAnchor.constraint(equalTo: topAnchor, constant: 8),postImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),postImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),postImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),movieTitle.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 20),movieTitle.leadingAnchor.constraint(equalTo: postImage.leadingAnchor, constant: 12),movieTitle.trailingAnchor.constraint(equalTo: postImage.trailingAnchor, constant: -12),movieYear.leadingAnchor.constraint(equalTo: movieTitle.leadingAnchor, constant: 12),movieYear.trailingAnchor.constraint(equalTo: movieTitle.trailingAnchor, constant: -12)]
         NSLayoutConstraint.activate(constraint)
         
     }
@@ -63,6 +75,9 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         }
         if let title = post.title{
             movieTitle.text = title
+        }
+        if let year = post.year{
+            movieYear.text = year
         }
     }
 }

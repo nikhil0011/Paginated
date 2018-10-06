@@ -55,7 +55,7 @@ class GalleryCollectionViewController: UICollectionViewController {
     let navbarCoverView = UIView()
     let tabbarCoverView = UIView()
     
-    func animateImageView(imageView: UIImageView){
+    func animateImageView(imageView: UIImageView,title: UILabel,year: UILabel){
         self.tempImageview = imageView
         
         self.blackBackground.frame = view.frame
@@ -94,7 +94,10 @@ class GalleryCollectionViewController: UICollectionViewController {
             cellImageView.image = imageView.image
             cellImageView.isUserInteractionEnabled = true
             cellImageView.contentMode = .scaleAspectFill
+            cellImageView.addSubview(title)
+            cellImageView.addSubview(year)
             view.addSubview(cellImageView)
+            
             
             cellImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(zoomOutImageview)))
             
@@ -171,7 +174,7 @@ extension GalleryCollectionViewController{
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         debugPrint("Count in numberOfItemsInSection",self.galleryPosts.count)
-        return galleryPosts.count ?? 0
+        return galleryPosts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
