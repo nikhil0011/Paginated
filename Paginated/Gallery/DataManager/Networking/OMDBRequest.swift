@@ -23,9 +23,9 @@ struct OMDBRequest {
 }
 
 extension OMDBRequest {
-  static func from(page: String) -> OMDBRequest {
+  static func from() -> OMDBRequest {
     let defaultParameters = ["s": "Batman", "apikey": privateKey]
-    let parameters = ["page": "\(page)"].merging(defaultParameters, uniquingKeysWith: +)
-    return OMDBRequest(parameters: parameters)
+//    let parameters = ["page": "\(page)"].merging(defaultParameters, uniquingKeysWith: +)
+    return OMDBRequest(parameters: defaultParameters)
   }
 }

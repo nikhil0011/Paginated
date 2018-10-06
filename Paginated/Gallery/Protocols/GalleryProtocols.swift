@@ -22,7 +22,7 @@ protocol GalleryViewProtocol: class {
     var presenter: GalleryPresenterProtocol? { get set }
     
     // PRESENTER -> VIEW
-    func showMoviewPosts(with posts: Array<MoviesPost>)
+    func showMoviewPosts(with posts: Array<MoviesPost>,with newIndexPathsToReload: [IndexPath]?)
     
     func showError()
     
@@ -47,7 +47,7 @@ protocol GalleryViewWireFrameProtocol: class {
 
 protocol GalleryViewInteractorOutputProtocol: class {
     // INTERACTOR -> PRESENTER
-    func didRetrieveMoviewPosts(_ posts: Array<MoviesPost>)
+    func didRetrieveMoviewPosts(_ posts: Array<MoviesPost>,with newIndexPathsToReload: [IndexPath]?)
     func onError()
 }
 
@@ -62,7 +62,7 @@ protocol GalleryDataViewRemoteDataManagerInputProtocol: class {
 
 protocol GalleryDataViewRemoteDataManagerOutputProtocol: class {
     // REMOTEDATAMANAGER -> INTERACTOR
-    func onPostsDataRetrieved(_ post: Array<MoviesPost>)
+    func onPostsDataRetrieved(_ post: Array<MoviesPost>,with newIndexPathsToReload: [IndexPath]?)
     func onError()
 }
 

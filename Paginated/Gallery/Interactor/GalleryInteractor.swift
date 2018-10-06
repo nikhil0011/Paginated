@@ -19,9 +19,9 @@ class GalleryInteractor: GalleryViewInteractorInputProtocol {
 }
 
 extension GalleryInteractor: GalleryDataViewRemoteDataManagerOutputProtocol {
-    func onPostsDataRetrieved(_ post: Array<MoviesPost>){
+    func onPostsDataRetrieved(_ post: Array<MoviesPost>,with newIndexPathsToReload: [IndexPath]?){
         debugPrint("Data Retrived$$$$$$",post.count)
-        presenter?.didRetrieveMoviewPosts(post)
+        presenter?.didRetrieveMoviewPosts(post, with: newIndexPathsToReload)
     }
     
     func onError() {

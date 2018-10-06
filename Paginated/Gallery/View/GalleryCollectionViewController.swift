@@ -28,6 +28,7 @@ class GalleryCollectionViewController: UICollectionViewController {
         self.navigationController?.navigationBar.titleTextAttributes   = [NSAttributedString.Key.foregroundColor: UIColor.black]
         
         self.collectionView!.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView.prefetchDataSource = self
         setupIndicator()
         presenter?.viewDidLoad()
         
@@ -132,9 +133,14 @@ class GalleryCollectionViewController: UICollectionViewController {
     
 }
 extension GalleryCollectionViewController: GalleryViewProtocol {
-    func showMoviewPosts(with posts: Array<MoviesPost>){
-        self.galleryPosts = posts
-        collectionView?.reloadData()
+    func showMoviewPosts(with posts: Array<MoviesPost>, with newIndexPathsToReload: [IndexPath]?) {
+        guard let indexes = newIndexPathsToReload else{
+            self.galleryPosts = posts
+            collectionView?.reloadData()
+            return
+        }
+        let indexPathsToReload = visibleIndexPathsToReload(intersecting: indexes)
+        collectionView.reloadItems(at: indexPathsToReload)
     }
     
     func showError() {
@@ -191,4 +197,32 @@ extension GalleryCollectionViewController{
     //        let post = flickrPosts[row]
     //        presenter?.showPostDetail(forPost: post)
     //    }
+}
+extension GalleryCollectionViewController: UICollectionViewDataSourcePrefetching{
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        //    Returns a Boolean value indicating whether the sequence contains an
+        //    element that satisfies the given predicate.
+        debugPrint("Pagination")
+        if indexPaths.contains(where: isLoadingCell) {
+            presenter?.viewDidLoad()
+        }
+    }
+    
+    
+}
+extension GalleryCollectionViewController{
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        debugPrint("indexPath.row",indexPath.row)
+        debugPrint("galleryPosts.count",galleryPosts.count)
+
+//        return indexPath.row >= presenter.currentCount
+        return indexPath.row >= galleryPosts.count - 1
+    }
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = collectionView.indexPathsForVisibleItems ?? []
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
+    }
+    
 }

@@ -23,6 +23,9 @@ class GalleryPostsRemoteDataManager: GalleryDataViewRemoteDataManagerInputProtoc
     }
 
     func retrievePostsDataList() {
+//        if (currentPage <= total){
+//             let request = OMDBRequest.from(page: "1")
+//        }
         
         client.fetchMoviesPost(with: request, page: currentPage) { result in
             switch result {
@@ -36,16 +39,29 @@ class GalleryPostsRemoteDataManager: GalleryDataViewRemoteDataManagerInputProtoc
             // 4
             case .success(let response):
                 debugPrint("response",response)
-
+                if let totalNumOfResults = response.totalResults{
+                    self.total = Int(totalNumOfResults)!
+                }
                 DispatchQueue.main.async {
+                    self.currentPage += 1
                     self.isFetchInProgress = false
                     if let posts = response.search{
-                        self.moviePosts += posts
+                        if (self.moviePosts.count > 0){
+                            self.moviePosts += posts
+                            let indexPathsToReload = self.calculateIndexPathsToReload(from: posts)
+                            self.remoteRequestHandler?.onPostsDataRetrieved(self.moviePosts, with: indexPathsToReload)
+                        }else{
+                            self.moviePosts += posts
+                            self.remoteRequestHandler?.onPostsDataRetrieved(self.moviePosts, with: nil)
+                        }
                     }
-                    self.remoteRequestHandler?.onPostsDataRetrieved(self.moviePosts)
                 }
             }
         }
     }
-
+    private func calculateIndexPathsToReload(from newMoviePost: [MoviesPost]) -> [IndexPath] {
+        let startIndex = moviePosts.count - newMoviePost.count
+        let endIndex = startIndex + newMoviePost.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+    }
 }

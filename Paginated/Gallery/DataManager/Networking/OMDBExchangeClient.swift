@@ -23,7 +23,7 @@ final class OMDBExchangeClient {
         // 1
         let urlRequest = URLRequest(url: baseURL.appendingPathComponent(request.path))
         // 2
-        let parameters = request.parameters
+        let parameters = ["page": "\(page)"].merging(request.parameters, uniquingKeysWith: +)
         // 3
         let encodedURLRequest = urlRequest.encode(with: parameters)
         
