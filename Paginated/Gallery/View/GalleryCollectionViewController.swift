@@ -54,7 +54,6 @@ class GalleryCollectionViewController: UICollectionViewController {
     let blackBackground = UIView()
     var cellImageView = UIImageView()
     let navbarCoverView = UIView()
-    let tabbarCoverView = UIView()
     
     func animateImageView(imageView: UIImageView,title: UILabel,year: UILabel){
         self.tempImageview = imageView
@@ -80,45 +79,29 @@ class GalleryCollectionViewController: UICollectionViewController {
          */
         if let keywindow = UIApplication.shared.keyWindow{
             keywindow.addSubview(navbarCoverView)
-            //            let heightOfTabbar = self.tabBarItem.accessibilityFrame.height
-            let heightOfTabbar = 49.0
-            
-            tabbarCoverView.frame = CGRect(x: 0, y: keywindow.frame.height - 49 , width: keywindow.frame.width, height: 49)
-            tabbarCoverView.backgroundColor = .black
-            tabbarCoverView.alpha = 0
-            keywindow.addSubview(tabbarCoverView)
         }
-        debugPrint("Start Frame ",imageView.superview!)
         if let startFrame = imageView.superview?.convert(imageView.frame, to: nil){
-            debugPrint("Imageview Frame",startFrame)
-            debugPrint("startFrame.minY",startFrame.minY)
-            debugPrint("title.frame.maxY",title.frame.maxY)
-            debugPrint("year.frame.maxY",year.frame.maxY)
-            let updatedY = startFrame.minY - (title.frame.maxY + year.frame.maxY)
-            let rect = CGRect(x: startFrame.minX, y: updatedY, width: startFrame.width, height: startFrame.height)
-            
-            debugPrint("rect ",rect)
-            
+
             cellImageView.frame = startFrame
             cellImageView.image = imageView.image
             cellImageView.isUserInteractionEnabled = true
             cellImageView.contentMode = .scaleAspectFill
-            cellImageView.addSubview(title)
-            cellImageView.addSubview(year)
+//            cellImageView.addSubview(title)
+//            cellImageView.addSubview(year)
             view.addSubview(cellImageView)
             
-            
+
             cellImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(zoomOutImageview)))
             
             let newHeight = self.view.frame.width * startFrame.height / self.view.frame.width
             let y = self.view.frame.height / 2 - newHeight/2
-            
+
             UIView.animate(withDuration: 0.75, delay: 0, options: .curveEaseOut, animations: {
                 self.cellImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: newHeight)
                 self.blackBackground.alpha = 1
                 self.navbarCoverView.alpha = 1
-                self.tabbarCoverView.alpha = 1
-            }, completion: nil)
+            }, completion: { (didComplete) -> Void in
+            })
         }
     }
     
@@ -126,15 +109,12 @@ class GalleryCollectionViewController: UICollectionViewController {
         if let startFrame = tempImageview?.superview?.convert((tempImageview?.frame)!, to: nil){
             UIView.animate(withDuration: 0.75, animations: {
                 self.cellImageView.frame = startFrame
-//                self.cellImageView.frame = CGRect(x: 8.0, y: 0.0, width: 163, height: 234)
                 self.blackBackground.alpha = 0
                 self.navbarCoverView.alpha = 0
-                self.tabbarCoverView.alpha = 0
             }, completion: {(didComplete) -> Void in
                 self.cellImageView.removeFromSuperview()
                 self.blackBackground.removeFromSuperview()
                 self.navbarCoverView.removeFromSuperview()
-                self.tabbarCoverView.removeFromSuperview()
                 self.tempImageview?.alpha = 1
             })
         }
