@@ -10,12 +10,9 @@ import UIKit
 
 class GalleryCollectionViewCell: UICollectionViewCell {
     var galleryController: GalleryCollectionViewController?
-    let postImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode  = .scaleAspectFill
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 12.0
+    let postImage: CachedImageView = {
+        let placeholder = UIImage(named: "placeholder")
+        let imageView = CachedImageView(cornerRadius: 12.0, emptyImage: placeholder)
         return imageView
     }()
     
