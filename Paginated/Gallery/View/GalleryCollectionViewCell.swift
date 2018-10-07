@@ -78,36 +78,33 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         if let poster = post.posterUrl{
                 postImage.contentMode = .scaleAspectFit
                 postImage.loadImage(urlString: poster)
-//                (from: imageUrl)
         }
         if let title = post.title{
             movieTitle.text = title
         }
         if let year = post.year{
-            movieYear.text = "Released on : \(year)"
+            if let releaseYear = returnNumberOfYears(from: year){
+                movieYear.text = "\(releaseYear) Years Ago"
+            }else{
+                movieYear.text = "Released In Year: \(year)"
+            }
         }
     }
-}
-extension UIImageView {
-    func downloaded(from url: URL, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
-        contentMode = mode
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else { return }
-            DispatchQueue.main.async() {
-                self.image = image
+    
+    fileprivate func returnNumberOfYears(from year: String?) -> Int?{
+        if let yearOfRelease = year{
+            /*
+             *Few Years were in range eg 1992-1995
+             */
+            if let yearInInt = Int(yearOfRelease){
+                let numberOfYears = 2018 - yearInInt
+                return numberOfYears
             }
-            }.resume()
-    }
-    func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
-        guard let url = URL(string: link) else { return }
-        downloaded(from: url, contentMode: mode)
+        }
+        return nil
     }
 }
+
 extension UIView{
     public func anchor(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) {
         translatesAutoresizingMaskIntoConstraints = false

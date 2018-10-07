@@ -168,13 +168,11 @@ extension GalleryCollectionViewController{
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        debugPrint("Count in numberOfItemsInSection",self.galleryPosts.count)
         return galleryPosts.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: GalleryCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! GalleryCollectionViewCell
-        debugPrint("GAllery Post")
         cell.set(forPost: galleryPosts[indexPath.row])
         cell.galleryController = self
         return cell
