@@ -23,7 +23,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.text = "LALALALLALALLAALALALLAALALLAALLA"
         label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = .red
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -32,7 +32,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "2015"
-        label.textColor = .red
+        label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14)
         return label
@@ -84,7 +84,11 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         }
         if let year = post.year{
             if let releaseYear = returnNumberOfYears(from: year){
-                movieYear.text = "\(releaseYear) Years Ago"
+                if releaseYear < 0 {
+                    movieYear.text = "Will be released by \(-releaseYear) Years"
+                }else{
+                    movieYear.text = "Released \(releaseYear) Years Ago"
+                }
             }else{
                 movieYear.text = "Released In Year: \(year)"
             }
