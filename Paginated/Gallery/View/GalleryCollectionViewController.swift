@@ -88,8 +88,16 @@ class GalleryCollectionViewController: UICollectionViewController {
             tabbarCoverView.alpha = 0
             keywindow.addSubview(tabbarCoverView)
         }
-        
+        debugPrint("Start Frame ",imageView.superview!)
         if let startFrame = imageView.superview?.convert(imageView.frame, to: nil){
+            debugPrint("Imageview Frame",startFrame)
+            debugPrint("startFrame.minY",startFrame.minY)
+            debugPrint("title.frame.maxY",title.frame.maxY)
+            debugPrint("year.frame.maxY",year.frame.maxY)
+            let updatedY = startFrame.minY - (title.frame.maxY + year.frame.maxY)
+            let rect = CGRect(x: startFrame.minX, y: updatedY, width: startFrame.width, height: startFrame.height)
+            
+            debugPrint("rect ",rect)
             
             cellImageView.frame = startFrame
             cellImageView.image = imageView.image
@@ -118,6 +126,7 @@ class GalleryCollectionViewController: UICollectionViewController {
         if let startFrame = tempImageview?.superview?.convert((tempImageview?.frame)!, to: nil){
             UIView.animate(withDuration: 0.75, animations: {
                 self.cellImageView.frame = startFrame
+//                self.cellImageView.frame = CGRect(x: 8.0, y: 0.0, width: 163, height: 234)
                 self.blackBackground.alpha = 0
                 self.navbarCoverView.alpha = 0
                 self.tabbarCoverView.alpha = 0
@@ -164,7 +173,7 @@ extension GalleryCollectionViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat =  16
         let collectionViewSize = collectionView.frame.size.width - padding
-        return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
+        return CGSize(width: collectionViewSize/2, height: 300)
     }
 }
 

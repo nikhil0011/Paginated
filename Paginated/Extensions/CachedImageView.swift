@@ -29,10 +29,11 @@ open class CachedImageView: UIImageView {
     
     public init(cornerRadius: CGFloat = 0, emptyImage: UIImage? = nil) {
         super.init(frame: .zero)
+        
         contentMode = .scaleAspectFill
         clipsToBounds = true
         layer.masksToBounds = true
-        backgroundColor = .white
+        backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = cornerRadius
         self.emptyImage = emptyImage
