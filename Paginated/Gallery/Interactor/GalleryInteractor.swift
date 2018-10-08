@@ -13,7 +13,6 @@ class GalleryInteractor: GalleryViewInteractorInputProtocol {
     var remoteDatamanager: GalleryDataViewRemoteDataManagerInputProtocol?
     
     func retrievePostsList() {
-        debugPrint("FlickrGridInteractor")
         remoteDatamanager?.retrievePostsDataList()
     }
 }
