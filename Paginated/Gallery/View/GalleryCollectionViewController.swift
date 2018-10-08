@@ -54,7 +54,7 @@ class GalleryCollectionViewController: UICollectionViewController {
     let blackBackground = UIView()
     var cellImageView = UIImageView()
     let navbarCoverView = UIView()
-    
+    var headerTitle = UILabel()
     func animateImageView(imageView: UIImageView,title: UILabel,year: UILabel){
         self.tempImageview = imageView
         
@@ -68,11 +68,22 @@ class GalleryCollectionViewController: UICollectionViewController {
          */
         if let navController = self.navigationController{
             navbarCoverView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: navController.navigationBar.frame.height + 20)
+            
         }else{
             navbarCoverView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44.0 + 20.0)
         }
         navbarCoverView.backgroundColor = .black
         navbarCoverView.alpha = 0
+        
+        let titleLabel = UILabel()
+        titleLabel.frame = CGRect(x: 20, y: 20, width: self.view.frame.width - 20, height: self.navbarCoverView.frame.height - 20)
+        titleLabel.textColor = .white
+        titleLabel.text = title.text! + "\n" + "\(String(describing: year.text!))"
+        titleLabel.center = navbarCoverView.center
+        headerTitle = titleLabel
+        titleLabel.numberOfLines = 0
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 11.0)
+        navbarCoverView.addSubview(titleLabel)
         /*
          *We can use add subview to add subview on to view
          but above it on nav controller it's to be done via key window
@@ -96,7 +107,7 @@ class GalleryCollectionViewController: UICollectionViewController {
             let newHeight = self.view.frame.width * startFrame.height / self.view.frame.width
             let y = self.view.frame.height / 2 - newHeight/2
 
-            UIView.animate(withDuration: 0.75, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
                 self.cellImageView.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: newHeight)
                 self.blackBackground.alpha = 1
                 self.navbarCoverView.alpha = 1
@@ -107,7 +118,7 @@ class GalleryCollectionViewController: UICollectionViewController {
     
     @objc fileprivate func zoomOutImageview(){
         if let startFrame = tempImageview?.superview?.convert((tempImageview?.frame)!, to: nil){
-            UIView.animate(withDuration: 0.75, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.cellImageView.frame = startFrame
                 self.blackBackground.alpha = 0
                 self.navbarCoverView.alpha = 0
@@ -115,6 +126,7 @@ class GalleryCollectionViewController: UICollectionViewController {
                 self.cellImageView.removeFromSuperview()
                 self.blackBackground.removeFromSuperview()
                 self.navbarCoverView.removeFromSuperview()
+                self.headerTitle.removeFromSuperview()
                 self.tempImageview?.alpha = 1
             })
         }
@@ -189,7 +201,6 @@ extension GalleryCollectionViewController: UICollectionViewDataSourcePrefetching
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         //    Returns a Boolean value indicating whether the sequence contains an
         //    element that satisfies the given predicate.
-        debugPrint("Pagination")
         if indexPaths.contains(where: isLoadingCell) {
             presenter?.viewDidLoad()
         }
@@ -199,15 +210,11 @@ extension GalleryCollectionViewController: UICollectionViewDataSourcePrefetching
 }
 extension GalleryCollectionViewController{
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        debugPrint("indexPath.row",indexPath.row)
-        debugPrint("galleryPosts.count",galleryPosts.count)
-
-//        return indexPath.row >= presenter.currentCount
         return indexPath.row >= galleryPosts.count - 1
     }
     
     func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
-        let indexPathsForVisibleRows = collectionView.indexPathsForVisibleItems ?? []
+        let indexPathsForVisibleRows = collectionView.indexPathsForVisibleItems 
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
     }
