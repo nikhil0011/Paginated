@@ -189,13 +189,7 @@ extension GalleryCollectionViewController{
         cell.galleryController = self
         return cell
     }
-    
-    
-    //   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //        let row = indexPath.row
-    //        let post = flickrPosts[row]
-    //        presenter?.showPostDetail(forPost: post)
-    //    }
+
 }
 extension GalleryCollectionViewController: UICollectionViewDataSourcePrefetching{
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
